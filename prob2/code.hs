@@ -1,40 +1,29 @@
 import           Data.List.Split
 import           Data.List
 import           Data.Ord
+import           Data.Maybe
 
-scoreFor :: String -> Int
+outcomeScore :: (Int, Int) -> Int
+outcomeScore (o, m) = [0, 3, 6] !! ((1 + m - o) `mod` 3)
 
-scoreFor "A X" = 3 + 1
-scoreFor "B Y" = 3 + 2
-scoreFor "C Z" = 3 + 3
+scoreFor :: (Int, Int) -> Int
+scoreFor (o, m) = outcomeScore (o, m) + m
 
-scoreFor "A Y" = 6 + 2
-scoreFor "B Z" = 6 + 3
-scoreFor "C X" = 6 + 1
+toNums :: String -> (Int, Int)
+toNums s =
+  ( fromJust (elemIndex (head s) "ABC") + 1
+  , fromJust (elemIndex (last s) "XYZ") + 1
+  )
+  where w = words s
 
-scoreFor "A Z" = 0 + 3
-scoreFor "B X" = 0 + 1
-scoreFor "C Y" = 0 + 2
-
-
-
-scoreFor2 :: String -> Int
-
-scoreFor2 "A X" = 0 + 3
-scoreFor2 "B Y" = 3 + 2
-scoreFor2 "C Z" = 6 + 1
-
-scoreFor2 "A Y" = 3 + 1
-scoreFor2 "B Z" = 6 + 3
-scoreFor2 "C X" = 0 + 2
-
-scoreFor2 "A Z" = 6 + 2
-scoreFor2 "B X" = 0 + 1
-scoreFor2 "C Y" = 3 + 3
+fromOutcome :: (Int, Int) -> (Int, Int)
+fromOutcome (o, 1) = (o, (o - 2) `mod` 3 + 1)
+fromOutcome (o, 2) = (o, o)
+fromOutcome (o, 3) = (o, o `mod` 3 + 1)
 
 main :: IO ()
 main = do
   content <- readFile "prob2/input.txt"
-  let strat  = lines content
-  let scores = map scoreFor2 strat
-  print (sum scores)
+  let strat = lines content
+  print (sum (map (scoreFor . toNums) strat))
+  print (sum (map (scoreFor . fromOutcome . toNums) strat))
