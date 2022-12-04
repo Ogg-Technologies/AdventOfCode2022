@@ -1,6 +1,4 @@
-import           Data.List
 import           Data.List.Split
-import           Data.Char
 
 parseRow :: String -> (Int, Int, Int, Int)
 parseRow s = (l1, h1, l2, h2)
