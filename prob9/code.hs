@@ -26,16 +26,9 @@ moveTail (hx, hy) (tx, ty)
 parseMove :: String -> [Dir]
 parseMove l = replicate (read n) (read d) where [d, n] = words l
 
-runMoves :: (Int, Int) -> (Int, Int) -> [Dir] -> [(Int, Int)]
-runMoves h t []       = [t]
-runMoves h t (d : ds) = t : runMoves h' t' ds
- where
-  h' = moveHead d h
-  t' = moveTail h' t
-
-runMoves2 :: [(Int, Int)] -> [Dir] -> [(Int, Int)]
-runMoves2 ps []       = [last ps]
-runMoves2 ps (d : ds) = last ps : runMoves2 ps' ds
+runMoves :: [(Int, Int)] -> [Dir] -> [(Int, Int)]
+runMoves ps []       = [last ps]
+runMoves ps (d : ds) = last ps : runMoves ps' ds
  where
   ps' :: [(Int, Int)]
   ps' = foldl
@@ -48,10 +41,8 @@ runMoves2 ps (d : ds) = last ps : runMoves2 ps' ds
 
 main :: IO ()
 main = do
-  ls <- lines <$> readFile "prob9/input.txt"
-  let moves   = concatMap parseMove ls
-  let visited = runMoves (0, 0) (0, 0) moves
+  moves <- concatMap parseMove . lines <$> readFile "prob9/input.txt"
+  let visited = runMoves (replicate 2 (0, 0)) moves
   print $ length $ nub visited
-
-  let visited2 = runMoves2 (replicate 10 (0, 0)) moves
+  let visited2 = runMoves (replicate 10 (0, 0)) moves
   print $ length $ nub visited2
