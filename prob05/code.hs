@@ -38,7 +38,7 @@ move2 stacks (n, from, to) = newStack
 
 main :: IO ()
 main = do
-  [l1, l2] <- splitOn "\n\n" <$> readFile "prob5/input.txt"
+  [l1, l2] <- splitOn "\n\n" <$> readFile "prob05/input.txt"
   let stacks = parseStacks l1
   let moves  = parseMoves l2
   let moved  = foldl move2 stacks moves

@@ -12,6 +12,6 @@ overlaps (l1, h1, l2, h2) = l1 <= h2 && h1 >= l2
 
 main :: IO ()
 main = do
-  l <- map parseRow . lines <$> readFile "prob4/input.txt"
+  l <- map parseRow . lines <$> readFile "prob04/input.txt"
   print $ length $ filter within l
   print $ length $ filter overlaps l

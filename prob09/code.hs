@@ -41,7 +41,7 @@ runMoves ps (d : ds) = last ps : runMoves ps' ds
 
 main :: IO ()
 main = do
-  moves <- concatMap parseMove . lines <$> readFile "prob9/input.txt"
+  moves <- concatMap parseMove . lines <$> readFile "prob09/input.txt"
   let visited = runMoves (replicate 2 (0, 0)) moves
   print $ length $ nub visited
   let visited2 = runMoves (replicate 10 (0, 0)) moves

@@ -40,7 +40,7 @@ getDirSize dir files =
 
 main :: IO ()
 main = do
-  l <- readFile "prob7/input.txt"
+  l <- readFile "prob07/input.txt"
   let a        = drop 1 $ splitOn "\n$ " l
   let b        = map lines a
   let cmds     = map toCmd b

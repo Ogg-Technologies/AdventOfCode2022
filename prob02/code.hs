@@ -21,7 +21,7 @@ fromOutcome (o, 2) = (o, (o + 1) `mod` 3)
 
 main :: IO ()
 main = do
-  content <- readFile "prob2/input.txt"
+  content <- readFile "prob02/input.txt"
   let strat = map toNums $ lines content
   print $ sum $ map scoreFor strat
   print $ sum $ map (scoreFor . fromOutcome) strat

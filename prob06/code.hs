@@ -10,7 +10,7 @@ findMarker n s = firstUnique (divvy n 1 s) + n
 
 main :: IO ()
 main = do
-  l <- readFile "prob6/input.txt"
+  l <- readFile "prob06/input.txt"
   print $ findMarker 4 l
   print $ findMarker 14 l
 

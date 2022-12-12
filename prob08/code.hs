@@ -37,7 +37,7 @@ scenicScore trees x y =
 
 main :: IO ()
 main = do
-  l <- lines <$> readFile "prob8/input.txt"
+  l <- lines <$> readFile "prob08/input.txt"
   let trees = parseToTrees l
   let positions =
         [ (x, y)
